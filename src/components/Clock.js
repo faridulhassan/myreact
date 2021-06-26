@@ -10,11 +10,6 @@ export default class Clock extends Component {
         };
     }
 
-    componentDidMount() {
-        // this.tick();
-        console.log(this.setState);
-    }
-
     componentWillUnmount() {
         this.clearTimer();
     }
@@ -24,7 +19,11 @@ export default class Clock extends Component {
         this.setState((state) => ({
             isRunning: !state.isRunning,
         }));
-        if (!isRunning) this.tick();
+        if (!isRunning) {
+            this.tick();
+        } else {
+            this.clearTimer();
+        }
     };
 
     clearTimer = () => {
@@ -41,14 +40,14 @@ export default class Clock extends Component {
         const { local, date, isRunning } = this.state;
         return (
             <div>
-                <div className="inline-block mr-3 w-96 text-center text-2xl  bg-blue-700 text-white p-2 rounded shadow-sm">
+                <div className="inline-block mr-3 mb-3 md:w-96 w-full max-w-full text-center text-2xl  bg-blue-700 text-white p-2 rounded shadow-sm">
                     {date.toLocaleTimeString(local)}
                 </div>
 
                 <button
                     className={`bg-${
                         isRunning ? 'red' : 'green'
-                    }-500 text-2xl  py-2 px-3 text-white`}
+                    }-500 text-2xl  py-2 px-3 text-white rounded`}
                     type="button"
                     onClick={this.handleClick}
                 >
